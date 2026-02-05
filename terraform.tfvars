@@ -32,7 +32,7 @@ nsg_rule = {
   "allow-ext-quic"  = { type = "pub", min = 443, max = null, protocol = "udp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow HTTPS/QUIC (EXT → LB)" },
   "allow-ext-dot"   = { type = "pub", min = 853, max = null, protocol = "tcp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow DoTLS (EXT → LB)" },
   "allow-ext-doq"   = { type = "pub", min = 853, max = null, protocol = "udp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow DoDTLS (EXT → LB)" },
-  "allow-ext-wg"    = { type = "pub", min = 59903, max = null, protocol = "udp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow WireGuard (EXT → LB)" },
+  "allow-ext-wg"    = { type = "pub", min = 51820, max = null, protocol = "udp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow WireGuard (EXT → LB)" },
   "allow-lb-http"   = { type = "pri", min = 10080, max = null, protocol = "tcp", direction = "INGRESS", target = "pub", target_type = "NETWORK_SECURITY_GROUP", description = "Allow HTTP (LB → VM)" },
   "allow-lb-https"  = { type = "pri", min = 10443, max = null, protocol = "tcp", direction = "INGRESS", target = "pub", target_type = "NETWORK_SECURITY_GROUP", description = "Allow HTTPS (LB → VM)" },
   "allow-lb-quic"   = { type = "pri", min = 10444, max = null, protocol = "udp", direction = "INGRESS", target = "pub", target_type = "NETWORK_SECURITY_GROUP", description = "Allow HTTPS/QUIC (LB → VM)" },
