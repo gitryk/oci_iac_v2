@@ -69,7 +69,7 @@ function copy_log { #copy cloud-init log to home directory
 function install_tailscale { #tailscale install for debug
   curl -fsSL https://tailscale.com/install.sh | sh
   systemctl enable --now tailscaled
-  tailscale up --authkey="$TS_KEY" --hostname="oci-vm-main"
+  tailscale up --authkey="$TS_KEY" --hostname="oci-vm"
 }
 
 #Main Execution
