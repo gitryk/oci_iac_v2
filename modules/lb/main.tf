@@ -5,7 +5,7 @@ locals {
     quic  = { port = 443, protocol = "UDP", health_port = 10080, traefik_port = 10444 }
     dot   = { port = 853, protocol = "TCP", health_port = 10853, traefik_port = 10853 }
     doq   = { port = 853, protocol = "UDP", health_port = 10080, traefik_port = 10854 }
-    wg    = { port = 59903, protocol = "UDP", health_port = 10080, traefik_port = 51820 }
+    wg    = { port = 51820, protocol = "UDP", health_port = 10080, traefik_port = 51820 }
   }
 }
 
@@ -27,6 +27,12 @@ resource "oci_network_load_balancer_network_load_balancer" "this" {
   lifecycle {
     ignore_changes = [freeform_tags]
   }
+
+  timeouts {
+    create = "20m"
+    update = "20m"
+    delete = "20m"
+  }
 }
 
 resource "oci_network_load_balancer_backend_set" "this" {
@@ -42,6 +48,12 @@ resource "oci_network_load_balancer_backend_set" "this" {
   policy                   = "TWO_TUPLE"
   is_fail_open             = each.key == "wg" ? true : false
   depends_on               = [oci_network_load_balancer_network_load_balancer.this]
+
+  timeouts {
+    create = "20m"
+    update = "20m"
+    delete = "20m"
+  }
 }
 
 resource "oci_network_load_balancer_listener" "this" {
@@ -53,6 +65,12 @@ resource "oci_network_load_balancer_listener" "this" {
   protocol                 = each.value.protocol
   port                     = each.value.port
   depends_on               = [oci_network_load_balancer_backend_set.this]
+
+  timeouts {
+    create = "20m"
+    update = "20m"
+    delete = "20m"
+  }
 }
 
 
@@ -66,4 +84,10 @@ resource "oci_network_load_balancer_backend" "this" {
 
   ip_address = var.target_ip
   depends_on = [oci_network_load_balancer_backend_set.this]
+
+  timeouts {
+    create = "20m"
+    update = "20m"
+    delete = "20m"
+  }
 }
