@@ -102,20 +102,6 @@ resource "oci_core_route_table" "pri_route" {
   }
 
   route_rules {
-    network_entity_id = data.oci_core_private_ips.pri_private_ips.private_ips[0].id
-    destination       = "172.16.10.0/27"
-    destination_type  = "CIDR_BLOCK"
-    description       = "Home Network User Range"
-  }
-
-  route_rules {
-    network_entity_id = data.oci_core_private_ips.pri_private_ips.private_ips[0].id
-    destination       = "172.16.20.0/22"
-    destination_type  = "CIDR_BLOCK"
-    description       = "HomeLab Range"
-  }
-
-  route_rules {
     network_entity_id = var.nat_gateway_id
     destination       = "0.0.0.0/0"
     destination_type  = "CIDR_BLOCK"
