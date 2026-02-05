@@ -45,3 +45,7 @@ You need to provide your specific OCI environment details in the terraform.tfvar
 * Global Configuration: Most parameters (VM specs, Network CIDRs, NSG rules) are fully manageable via terraform.tfvars.
 * OS Selection : You can use OS Ubuntu or Rocky Linux
 * Exceptions: The Network Load Balancer (NLB) detailed information is defined within local variables for architectural consistency and is not exposed in the .tfvars file.
+
+&nbsp;
+
+`This is an example code. You can customize it to suit your needs.`
