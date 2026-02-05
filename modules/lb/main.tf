@@ -16,7 +16,7 @@ resource "oci_network_load_balancer_network_load_balancer" "this" {
   subnet_id      = var.subnet_info["pub"].id
 
   network_security_group_ids = [var.nsg_info["pub"].id]
-  is_private                 = false #공개 로드밸런서
+  is_private                 = false #Public Network Loadbalancer
   nlb_ip_version             = "IPV4"
 
   freeform_tags = merge(var.tagging, {
