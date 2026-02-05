@@ -2,8 +2,8 @@ locals {
   tagging = {
     "Project"     = "${var.project_name}"
     "Provisioner" = "Terraform"
-    "Author"      = "${var.owner}"
-    "CreateTime"  = "${formatdate("YYYY-MM-DD HH:mm:ss", timeadd(timestamp(), "9h"))} KST"
+    "Owner"       = "${var.owner}"
+    "CreateTime"  = "${formatdate("YYYY-MM-DD hh:mm:ss", timeadd(timestamp(), "9h"))} KST"
   }
 }
 
