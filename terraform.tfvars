@@ -8,7 +8,7 @@ user_id              = ""
 
 #app
 project_name = ""
-owner        = "TryK"
+owner        = ""
 
 #server
 server_config = {
@@ -30,14 +30,10 @@ nsg_rule = {
   "allow-ext-http"  = { type = "pub", min = 80, max = null, protocol = "tcp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow HTTP (EXT → LB)" },
   "allow-ext-https" = { type = "pub", min = 443, max = null, protocol = "tcp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow HTTPS/DoH (EXT → LB)" },
   "allow-ext-quic"  = { type = "pub", min = 443, max = null, protocol = "udp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow HTTPS/QUIC (EXT → LB)" },
-  "allow-ext-dot"   = { type = "pub", min = 853, max = null, protocol = "tcp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow DoTLS (EXT → LB)" },
-  "allow-ext-doq"   = { type = "pub", min = 853, max = null, protocol = "udp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow DoDTLS (EXT → LB)" },
   "allow-ext-wg"    = { type = "pub", min = 51820, max = null, protocol = "udp", direction = "INGRESS", target = "0.0.0.0/0", target_type = "CIDR_BLOCK", description = "Allow WireGuard (EXT → LB)" },
   "allow-lb-http"   = { type = "pri", min = 10080, max = null, protocol = "tcp", direction = "INGRESS", target = "pub", target_type = "NETWORK_SECURITY_GROUP", description = "Allow HTTP (LB → VM)" },
   "allow-lb-https"  = { type = "pri", min = 10443, max = null, protocol = "tcp", direction = "INGRESS", target = "pub", target_type = "NETWORK_SECURITY_GROUP", description = "Allow HTTPS (LB → VM)" },
   "allow-lb-quic"   = { type = "pri", min = 10444, max = null, protocol = "udp", direction = "INGRESS", target = "pub", target_type = "NETWORK_SECURITY_GROUP", description = "Allow HTTPS/QUIC (LB → VM)" },
-  "allow-lb-dot"    = { type = "pri", min = 10853, max = null, protocol = "tcp", direction = "INGRESS", target = "pub", target_type = "NETWORK_SECURITY_GROUP", description = "Allow DoT/TLS (LB → VM)" },
-  "allow-lb-doq"    = { type = "pri", min = 10854, max = null, protocol = "udp", direction = "INGRESS", target = "pub", target_type = "NETWORK_SECURITY_GROUP", description = "Allow DoT/QUIC (LB → VM)" },
   "allow-lb-wg"     = { type = "pri", min = 51820, max = null, protocol = "udp", direction = "INGRESS", target = "pub", target_type = "NETWORK_SECURITY_GROUP", description = "Allow WireGuard (LB → VM)" },
   "allow-pri-icmp"  = { type = "pri", min = null, max = null, protocol = "icmp", direction = "INGRESS", target = "pri", target_type = "NETWORK_SECURITY_GROUP", description = "Allow PriNet ICMP" },
   "allow-pri-tcp"   = { type = "pri", min = 1, max = 65535, protocol = "tcp", direction = "INGRESS", target = "pri", target_type = "NETWORK_SECURITY_GROUP", description = "Allow PriNet TCP" },
