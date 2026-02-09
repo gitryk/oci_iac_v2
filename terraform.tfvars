@@ -19,11 +19,11 @@ server_config = {
 tailscale_authkey = ""
 
 #network
-vcn_cidr = ["172.16.30.0/27"]
+vcn_cidr = ["172.16.30.0/28"]
 
 network_config = {
-  pub = { cidr = "172.16.30.16/28" }
-  pri = { cidr = "172.16.30.0/28" }
+  pub = { cidr = "172.16.30.0/29" }
+  pri = { cidr = "172.16.30.8/29" }
 }
 
 nsg_rule = {
