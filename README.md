@@ -1,51 +1,31 @@
-# Deploy OCI Infrastructure (Terraform_IaC_v2)
+# Terraform OCI Provider (v2)
 
-This project provisions a infrastructure on Oracle Cloud Infrastructure (OCI) using Terraform. 
-
-It is specifically designed to maximize the OCI Ampere A1 Free Tier resources.
+This repository contains Terraform configurations for managing Oracle Cloud Infrastructure (OCI) resources. It focuses on automated infrastructure deployment with a strong emphasis on security using `sops` and `age`.
 
 &nbsp;
 
-## Provisioned Resources
-This code automates the deployment of the following components:
-
-* **Networking**: VCN, Subnets (Public & Private), Internet Gateway, NAT Gateway.
-* **Routing & Security**: Route Tables, Security Lists, Network Security Groups (NSG) with fine-grained Security Rules.
-* **Load Balancing**: Network Load Balancer (NLB), Backend Sets, Backends, and Listeners.
-* **Compute**: Two Virtual Machines using ARM-based Ampere A1 shapes.
+## 🚀 Quick Start
+To set up the environment and deploy the infrastructure, please follow the detailed instructions in **[USAGE.md](./USAGE.md)**.
 
 &nbsp;
 
-## Prerequisites
-
-### 1. Key Management
-Before running Terraform, you must place the required cryptographic keys in the `keys` directory:
-* **VM Access Keys**: Public and private keys for SSH access to the instances.
-* **Terraform API Key**: The private key (`.pem`) used for OCI provider authentication.
-
-```text
-./keys/instance/
-├── public.key
-└── private.key
-
-./keys/terraform/
-└── private.pem
-```
+### Brief Workflow:
+1. **Configure Environment:** Install dependencies (age, direnv, sops) as described in `USAGE.md`.
+2. **Key Generation:** Generate your `age` key and update `.sops.yaml`.
+3. **Secret Management:** - Create your secrets in `keys/secret.json`.
+   - Encrypt the file using: `sops -e keys/secret.json > keys/secret.enc.json`.
+4. **Deploy:** Run Terraform commands within the `oci` directory.
 
 &nbsp;
 
-### 2. Configuration (terraform.tfvars)
-You need to provide your specific OCI environment details in the terraform.tfvars file. This includes:
-* tenancy_ocid, user_ocid, fingerprint, and region.
-* Project-specific variables like project_name and server_config.
+## ✨ Key Features
+* **Secure Secret Management:** Utilizes `sops` and `age` for robust encryption of sensitive data (e.g., API keys, credentials), ensuring no plain-text secrets are stored in version control.
+* **Environment Automation:** Integration with `direnv` automatically loads necessary environment variables and hooks upon entering the project directory.
+* **Infrastructure as Code (IaC):** Fully declarative OCI resource management using Terraform, supporting repeatable and scalable deployments.
+* **Modular Scripting:** Includes specialized scripts (e.g., WireGuard configuration) that are automatically injected and decrypted during the instance initialization process.
+* **Optimized for OCI:** Custom-tailored configurations for OCI Compute, Network, and Storage services.
 
 &nbsp;
 
-## Resource Control
-* Global Configuration: Most parameters (VM specs, Network CIDRs, NSG rules) are fully manageable via terraform.tfvars.
-* OS Selection : You can use OS Ubuntu or Rocky Linux
-* Exceptions: The Network Load Balancer (NLB) detailed information is defined within local variables for architectural consistency and is not exposed in the .tfvars file.
-
-&nbsp;
-
-`This is an example code. You can customize it to suit your needs.`
+---
+*Note: This document was authored by a non-native English speaker with the assistance of AI.*
