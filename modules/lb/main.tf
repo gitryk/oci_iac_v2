@@ -1,8 +1,8 @@
 locals {
   lb_configs = {
-    http = { port = 80, protocol = "TCP", health_port = 80, internal_port = 80 }
-    tls  = { port = 443, protocol = "TCP_AND_UDP", health_port = 443, internal_port = 443 }
-    dns  = { port = 853, protocol = "TCP_AND_UDP", health_port = 853, internal_port = 853 }
+    http = { port = 80, protocol = "TCP", health_port = 80, internal_port = 10080 }
+    tls  = { port = 443, protocol = "TCP_AND_UDP", health_port = 443, internal_port = 10443 }
+    dns  = { port = 853, protocol = "TCP_AND_UDP", health_port = 853, internal_port = 10853 }
     wg   = { port = 51820, protocol = "UDP", health_port = 80, internal_port = 51820 }
   }
 }
