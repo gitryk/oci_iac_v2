@@ -1,11 +1,9 @@
 locals {
   lb_configs = {
-    http  = { port = 80, protocol = "TCP", health_port = 10080, traefik_port = 10080 }
-    https = { port = 443, protocol = "TCP", health_port = 10443, traefik_port = 10443 }
-    quic  = { port = 443, protocol = "UDP", health_port = 10080, traefik_port = 10444 }
-    dot   = { port = 853, protocol = "TCP", health_port = 10853, traefik_port = 10853 }
-    doq   = { port = 853, protocol = "UDP", health_port = 10080, traefik_port = 10854 }
-    wg    = { port = 59903, protocol = "UDP", health_port = 10080, traefik_port = 51820 }
+    http = { port = 80, protocol = "TCP", health_port = 80, internal_port = 80 }
+    tls  = { port = 443, protocol = "TCP_AND_UDP", health_port = 443, internal_port = 443 }
+    dns  = { port = 853, protocol = "TCP_AND_UDP", health_port = 853, internal_port = 853 }
+    wg   = { port = 51820, protocol = "UDP", health_port = 80, internal_port = 51820 }
   }
 }
 
@@ -16,7 +14,7 @@ resource "oci_network_load_balancer_network_load_balancer" "this" {
   subnet_id      = var.subnet_info["pub"].id
 
   network_security_group_ids = [var.nsg_info["pub"].id]
-  is_private                 = false #공개 로드밸런서
+  is_private                 = false #Public LB
   nlb_ip_version             = "IPV4"
 
   freeform_tags = merge(var.tagging, {
@@ -37,7 +35,7 @@ resource "oci_network_load_balancer_backend_set" "this" {
     protocol = "TCP"
   }
 
-  name                     = "${var.project_name}-nlb-bendset-${each.key}"
+  name                     = "${var.project_name}-nlb-bes-${each.key}"
   network_load_balancer_id = oci_network_load_balancer_network_load_balancer.this.id
   policy                   = "TWO_TUPLE"
   is_fail_open             = each.key == "wg" ? true : false
@@ -55,13 +53,12 @@ resource "oci_network_load_balancer_listener" "this" {
   depends_on               = [oci_network_load_balancer_backend_set.this]
 }
 
-
 resource "oci_network_load_balancer_backend" "this" {
   for_each = local.lb_configs
 
   backend_set_name         = oci_network_load_balancer_backend_set.this[each.key].name
   network_load_balancer_id = oci_network_load_balancer_network_load_balancer.this.id
-  port                     = each.value.traefik_port
+  port                     = each.value.internal_port
   name                     = "${var.project_name}-nlb-backend-${each.key}"
 
   ip_address = var.target_ip
